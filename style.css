@@ -7,11 +7,11 @@ body {
   padding: 0;
   z-index: 0;
   overflow-x: hidden;
-  cursor: url("images/cursor.png"), auto;
+  cursor: url("images/cursor/cursor.png"), auto;
 }
 
 a:hover {
-  cursor: url("images/cursor-hover.png"), pointer;
+  cursor: url("images/cursor/cursor-hover.png"), pointer;
 }
 
 /* Background Texture */

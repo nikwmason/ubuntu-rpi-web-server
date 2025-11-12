@@ -6,13 +6,13 @@ $time = time();
 
 // Read existing data
 if (file_exists($file)) {
-    $json = file_get_contents($file);
-    $data = json_decode($json, true);
-    if (!is_array($data)) {
-        $data = [];
+    $json = @file_get_contents($file);
+    if ($json !== false) {
+        $decoded = json_decode($json, true);
+        if (is_array($decoded)) {
+            $data = $decoded;
+        }
     }
-} else {
-    $data = [];
 }
 
 // Update this visitor's timestamp
@@ -26,9 +26,9 @@ foreach ($data as $key => $timestamp) {
 }
 
 // Write updated data
-if (file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT)) === false) {
-    echo "Error writing to JSON file!";
-    exit;
+$jsonData = json_encode($data, JSON_PRETTY_PRINT);
+if (@file_put_contents($file, $jsonData, LOCK_EX) === false) {
+    error_log("Failed to write to $file");
 }
 
 // Output number of online users
